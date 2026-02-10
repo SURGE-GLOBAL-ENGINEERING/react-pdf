@@ -170,6 +170,11 @@ const relayoutPageToIncreaseLines = async (pageIndex, doc, fontStore) => {
     }
   }
 
+  // Return the original page if no candidate value was found
+  if (!memoizedResults.has(relativeLetterSpace)) {
+    return page;
+  }
+
   return memoizedResults.get(relativeLetterSpace)[1];
 };
 
