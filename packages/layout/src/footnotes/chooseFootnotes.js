@@ -145,12 +145,7 @@ export default function chooseFootnotes(page, footnotes) {
           });
           chosenFootnotes = remainingFootnotes;
 
-          // Footnotes dropped here still have their reference on this page, so the
-          // reference needs to move to the next page along with them - otherwise
-          // the reference renders with no matching footnote text. Reduce the
-          // reserved footnote height to match what's actually still chosen, and
-          // shift the split point back to the earliest dropped reference so it
-          // (and anything after it) gets deferred too.
+          // Footnotes dropped here still have their reference on this page
           footnotesHeight -= droppedFootnotes.reduce(
             (a, b) => a + b.heightNeeded,
             0,
