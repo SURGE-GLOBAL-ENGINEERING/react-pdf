@@ -29,7 +29,7 @@ const drawImage = ctx => node => {
   if (node.image.data) {
     if (width !== 0 && height !== 0) {
       ctx
-        .fillOpacity(opacity || 1)
+        .fillOpacity(opacity?? 1)
         .image(
           node.image.data,
           left + paddingLeft + xOffset,
