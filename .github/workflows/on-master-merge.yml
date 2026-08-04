@@ -10,6 +10,8 @@ jobs:
   publish:
     name: publish to github
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     permissions:
       contents: write
       packages: write
