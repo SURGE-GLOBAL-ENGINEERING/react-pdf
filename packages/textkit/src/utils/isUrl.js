@@ -7,7 +7,7 @@ const localhostDomainRE = /^localhost[\:?\d]*(?:[^\:?\d]\S*)?$/;
 const nonLocalhostDomainRE = /^[a-z0-9-]+(?:\.[a-z0-9-]{2,})+(?::\d{2,5})?(?:[/?#]\S*)?$/i;
 
 /**
- * Removes a trailing sentence period when the remainder still matches a URL
+ * Removes a trailing sentence period when the remainder still matches a URL.
  * 
  * @param {string} value value to strip trailing dot from
  * @returns {string} value with trailing dot removed if it was a URL
