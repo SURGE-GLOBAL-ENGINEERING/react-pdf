@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.11](https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf/compare/@surge-global-engineering/rpdf-textkit@2.3.9...@surge-global-engineering/rpdf-textkit@2.3.11) (2026-08-04)
+
+
+### Bug Fixes
+
+* enhance URL validation to prevent normal words being treated as URLs ([1b5fe44](https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf/commit/1b5fe442d92b1108d762261490c40ecd9c334398))
+
+
+
+
+
 ## [2.3.3](https://github.com/Paladin-Analytics/react-pdf/compare/@paladin-analytics/rpdf-textkit@2.3.2...@paladin-analytics/rpdf-textkit@2.3.3) (2022-07-27)
 
 **Note:** Version bump only for package @paladin-analytics/rpdf-textkit

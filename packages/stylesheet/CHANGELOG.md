@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.31](https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf/compare/@surge-global-engineering/rpdf-stylesheet@2.0.29...@surge-global-engineering/rpdf-stylesheet@2.0.31) (2026-08-04)
+
+**Note:** Version bump only for package @surge-global-engineering/rpdf-stylesheet
+
+
+
+
+
 ## [2.0.23](https://github.com/Paladin-Analytics/react-pdf/compare/@paladin-analytics/rpdf-stylesheet@2.0.22...@paladin-analytics/rpdf-stylesheet@2.0.23) (2022-11-08)
 
 **Note:** Version bump only for package @paladin-analytics/rpdf-stylesheet

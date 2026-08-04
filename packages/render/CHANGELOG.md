@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.29](https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf/compare/@surge-global-engineering/rpdf-render@2.1.27...@surge-global-engineering/rpdf-render@2.1.29) (2026-08-04)
+
+**Note:** Version bump only for package @surge-global-engineering/rpdf-render
+
+
+
+
+
 ## [2.1.21](https://github.com/Paladin-Analytics/react-pdf/compare/@paladin-analytics/rpdf-render@2.1.20...@paladin-analytics/rpdf-render@2.1.21) (2022-11-08)
 
 **Note:** Version bump only for package @paladin-analytics/rpdf-render

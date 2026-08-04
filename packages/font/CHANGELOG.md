@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.11](https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf/compare/@surge-global-engineering/rpdf-font@2.2.9...@surge-global-engineering/rpdf-font@2.2.11) (2026-08-04)
+
+**Note:** Version bump only for package @surge-global-engineering/rpdf-font
+
+
+
+
+
 ## [2.2.3](https://github.com/Paladin-Analytics/react-pdf/compare/@paladin-analytics/rpdf-font@2.2.2...@paladin-analytics/rpdf-font@2.2.3) (2022-11-08)
 
 **Note:** Version bump only for package @paladin-analytics/rpdf-font

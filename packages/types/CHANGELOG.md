@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.8](https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf/compare/@surge-global-engineering/rpdf-types@2.5.6...@surge-global-engineering/rpdf-types@2.5.8) (2026-08-04)
+
+**Note:** Version bump only for package @surge-global-engineering/rpdf-types
+
+
+
+
+
 # [2.5.0](https://github.com/Paladin-Analytics/react-pdf/compare/@paladin-analytics/rpdf-types@2.4.0...@paladin-analytics/rpdf-types@2.5.0) (2022-11-08)
 
 

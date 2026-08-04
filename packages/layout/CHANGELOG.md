@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.7.16](https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf/compare/@surge-global-engineering/rpdf-layout@2.7.14...@surge-global-engineering/rpdf-layout@2.7.16) (2026-08-04)
+
+
+### Bug Fixes
+
+* return original page if no candidate value found in relayoutPageToIncreaseLines ([11b7962](https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf/commit/11b7962b1d11f50db8616fcc416b851e69bb87d5))
+
+
+
+
+
 ## [2.7.5](https://github.com/Paladin-Analytics/react-pdf/compare/@paladin-analytics/rpdf-layout@2.7.4...@paladin-analytics/rpdf-layout@2.7.5) (2022-12-29)
 
 
