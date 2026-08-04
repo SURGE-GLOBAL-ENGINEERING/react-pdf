@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.12](https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf/compare/@surge-global-engineering/rpdf-textkit@2.3.11...@surge-global-engineering/rpdf-textkit@2.3.12) (2026-08-04)
+
+**Note:** Version bump only for package @surge-global-engineering/rpdf-textkit
+
+
+
+
+
 ## [2.3.11](https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf/compare/@surge-global-engineering/rpdf-textkit@2.3.9...@surge-global-engineering/rpdf-textkit@2.3.11) (2026-08-04)
 
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.17](https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf/compare/@surge-global-engineering/rpdf-renderer@2.4.16...@surge-global-engineering/rpdf-renderer@2.4.17) (2026-08-04)
+
+**Note:** Version bump only for package @surge-global-engineering/rpdf-renderer
+
+
+
+
+
 ## [2.4.16](https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf/compare/@surge-global-engineering/rpdf-renderer@2.4.14...@surge-global-engineering/rpdf-renderer@2.4.16) (2026-08-04)
 
 **Note:** Version bump only for package @surge-global-engineering/rpdf-renderer
