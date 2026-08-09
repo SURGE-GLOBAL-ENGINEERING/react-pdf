@@ -129,19 +129,36 @@ export default function chooseFootnotes(page, footnotes) {
           }
         } else {
           // filter footnotes that will be shifted due to orphan / widow protection
-          chosenFootnotes = chosenFootnotes.filter(note => {
+          const remainingFootnotes = [];
+          const droppedFootnotes = [];
+          chosenFootnotes.forEach(note => {
             // bottom of the line containing the note reference
             const noteBottom = note.approxBottom - page.box.paddingTop;
             // height between current groupTop(shift point) and note bottom
             const spaceAfter = groupTop - noteBottom;
             // if the line is the last line, a break should be allowed after it to include it
-            return spaceAfter > lineHeight || note.breakAfter;
+            if (spaceAfter > lineHeight || note.breakAfter) {
+              remainingFootnotes.push(note);
+            } else {
+              droppedFootnotes.push(note);
+            }
           });
+          chosenFootnotes = remainingFootnotes;
+
+          // Footnotes dropped here still have their reference on this page
+          footnotesHeight -= droppedFootnotes.reduce(
+            (a, b) => a + b.heightNeeded,
+            0,
+          );
+          const shiftPoint = droppedFootnotes.reduce(
+            (min, note) => Math.min(min, note.approxTop - page.box.paddingTop),
+            groupTop,
+          );
 
           // if they can be included in a single page add a space and shift the reference to next page
           spacingNeeded =
             contentArea -
-            groupTop -
+            shiftPoint -
             (chosenFootnotes.length > 0 ? footnotesHeight : 0);
         }
         break;
