@@ -17,21 +17,6 @@ const groupByKey = (array, key) => {
   );
 };
 
-const chooseToFitHeight = (group, height) => {
-  const chosen = [];
-  let totalHeight = 0;
-  for (let i = 0; i < group.length; i += 1) {
-    const note = group[i];
-
-    if (totalHeight + note.heightNeeded > height) {
-      break;
-    }
-
-    chosen.push(note);
-    totalHeight += note.heightNeeded;
-  }
-  return chosen;
-};
 /**
  * Given page, choose which footnotes to include in the page considering,
  *
@@ -104,44 +89,53 @@ export default function chooseFootnotes(page, footnotes) {
 
       // case where space is not enough to include all the notes
       else {
-        const availableSpace = contentArea - groupBottom - footnotesHeight;
         // keep at least 2 lines to avoid triggering widow / orphan
         const minContentSpace = Math.ceil(lineHeight * 2);
-        /* 
+        /*
           if the references and the footnotes height total is greater than the page,
-          show the footnotes in the available space and discard others
+          defer the whole group (and anything after it) to the next page instead of
+          truncating it - a footnote that doesn't fit here should still get a chance
+          to render on the next page rather than being discarded.
         */
         if (minContentSpace + totalHeight > contentArea) {
-          if (groupBottom >= minContentSpace) {
-            // if the references are below the minimum possible content size,
-            // shift the footnotes refs to the first line of next page
-            spacingNeeded = Math.ceil(contentArea - groupTop - footnotesHeight);
-          } else {
-            // if the refs are within the minimum content size, show what is possible & cut off others.
-            const chosen = chooseToFitHeight(footnoteGroup, availableSpace);
-            chosenFootnotes.push(...chosen);
-            footnotesHeight += chosen.reduce((a, b) => a + b.heightNeeded, 0);
-
-            spacingNeeded =
-              contentArea -
-              Math.max(groupBottom, minContentSpace) -
-              footnotesHeight;
-          }
+          spacingNeeded = Math.ceil(contentArea - groupTop - footnotesHeight);
         } else {
           // filter footnotes that will be shifted due to orphan / widow protection
-          chosenFootnotes = chosenFootnotes.filter(note => {
+          const remainingFootnotes = [];
+          const droppedFootnotes = [];
+          chosenFootnotes.forEach(note => {
             // bottom of the line containing the note reference
             const noteBottom = note.approxBottom - page.box.paddingTop;
             // height between current groupTop(shift point) and note bottom
             const spaceAfter = groupTop - noteBottom;
             // if the line is the last line, a break should be allowed after it to include it
-            return spaceAfter > lineHeight || note.breakAfter;
+            if (spaceAfter > lineHeight || note.breakAfter) {
+              remainingFootnotes.push(note);
+            } else {
+              droppedFootnotes.push(note);
+            }
           });
+          chosenFootnotes = remainingFootnotes;
+
+          // Footnotes dropped here still have their reference on this page, so the
+          // reference needs to move to the next page along with them - otherwise
+          // the reference renders with no matching footnote text. Reduce the
+          // reserved footnote height to match what's actually still chosen, and
+          // shift the split point back to the earliest dropped reference so it
+          // (and anything after it) gets deferred too.
+          footnotesHeight -= droppedFootnotes.reduce(
+            (a, b) => a + b.heightNeeded,
+            0,
+          );
+          const shiftPoint = droppedFootnotes.reduce(
+            (min, note) => Math.min(min, note.approxTop - page.box.paddingTop),
+            groupTop,
+          );
 
           // if they can be included in a single page add a space and shift the reference to next page
           spacingNeeded =
             contentArea -
-            groupTop -
+            shiftPoint -
             (chosenFootnotes.length > 0 ? footnotesHeight : 0);
         }
         break;
