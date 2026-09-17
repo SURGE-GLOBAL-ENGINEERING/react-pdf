@@ -85,9 +85,13 @@ function getFootnotes(node, top = 0) {
         ...calculatedNotes
           .filter(  // check if the footnote is present within a line
             e =>
-              e.loc - e.ref.length < line.string.length + previousLines &&
+              // upper bound is inclusive: a footnote positioned exactly at the
+              // wrapped separator character between this line and the next
+              // (accounted for by the "+ 1" above) belongs to this line, not
+              // neither - otherwise it silently matches no line at all.
+              e.loc - e.ref.length <= line.string.length + previousLines &&
               e.loc - e.ref.length >= previousLines,
-          ) 
+          )
           .map(r => ({
             ...r,
             approxTop: topUpto,
