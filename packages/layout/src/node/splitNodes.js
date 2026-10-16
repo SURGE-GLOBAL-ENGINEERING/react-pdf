@@ -17,12 +17,32 @@ const getTop = R.pathOr(0, ['box', 'top']);
 
 const getHeight = R.path(['box', 'height']);
 
+const getMinWrapHeight = R.path(['props', 'minWrapHeight']);
+
 const isElementOutside = R.useWith(R.lte, [R.identity, getTop]);
 
 const warnUnavailableSpace = node => {
   console.warn(
     `Node of type ${node.type} can't wrap between pages and it's bigger than available page height`,
   );
+};
+
+const hasAnyLines = node => {
+  if (node?.lines?.length) {
+    return true;
+  }
+  if (node?.children && Array.isArray(node.children)) {
+    for (let i = 0; i < node.children.length; i += 1) {
+      if (hasAnyLines(node.children[i])) return true;
+    }
+  }
+  return false;
+};
+
+const isEmptyWrapFragment = node => {
+  if (!node) return true;
+  if (getMinWrapHeight(node) == null) return false;
+  return !hasAnyLines(node);
 };
 
 const splitNodes = (height, contentArea, nodes) => {
@@ -88,6 +108,19 @@ const splitNodes = (height, contentArea, nodes) => {
 
     if (shouldSplit || anyChildHasBreak) {
       const [currentChild, nextChild] = split(child, height, contentArea);
+
+      // If wrapping left an empty bubble tip (long text messages), move the node wholly to the next page
+      if (canWrap && nextChild && isEmptyWrapFragment(currentChild)) {
+        const deferred = R.evolve({
+          box: { top: R.subtract(R.__, height) },
+          props: R.evolve({
+            wrap: R.always(true),
+            break: R.always(false),
+          }),
+        })(child);
+        nextChildren.push(deferred, ...futureNodes);
+        break;
+      }
 
       if (currentChild) currentChildren.push(currentChild);
       if (nextChild) nextChildren.push(nextChild);

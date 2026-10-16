@@ -14,6 +14,10 @@ const getBreakIfLastOnPage = R.pathOr(false, ['props', 'breakIfLastOnPage']);
 
 const getMinPresenceAhead = R.path(['props', 'minPresenceAhead']);
 
+const getMinWrapHeight = R.path(['props', 'minWrapHeight']);
+
+const getTop = R.pathOr(0, ['box', 'top']);
+
 const defaultPresenceAhead = element => height =>
   Math.min(element.box.height, height);
 
@@ -108,15 +112,22 @@ const canDrawOnPage = (node, presenceAhead, height, contentArea) => {
 
 const shouldBreak = (child, futureElements, height, contentArea) => {
   const minPresenceAhead = getMinPresenceAhead(child);
+  const minWrapHeight = getMinWrapHeight(child);
   const presenceAhead = getPresenceAhead(futureElements, height);
   const futureHeight = getNodesHeight(futureElements);
   const wrapTextAroundChildrenHeight = getWrapTextAroundChildrenHeight(child);
   const shouldSplit =
     height < child.box.top + child.box.height + wrapTextAroundChildrenHeight;
   const shouldWrap = getWrap(child);
+  // If a wrapping node needs more than the leftover space to start meaningfully,
+  // push it to the next page instead of leaving a chrome "tip" fragment.
+  const remaining = height - getTop(child);
+  const shouldDeferWrapStart =
+    shouldWrap && minWrapHeight != null && remaining < minWrapHeight;
 
   return (
     getBreak(child) ||
+    shouldDeferWrapStart ||
     (!shouldWrap && shouldSplit) ||
     (wrapTextAroundChildrenHeight && shouldSplit) ||
     (minPresenceAhead < futureHeight && presenceAhead < minPresenceAhead) ||
