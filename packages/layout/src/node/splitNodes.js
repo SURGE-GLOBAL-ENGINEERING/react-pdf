@@ -25,6 +25,35 @@ const warnUnavailableSpace = node => {
   );
 };
 
+/**
+ * The page break check ignores the margin under a block. 
+ * If the last real block on the page fits but that margin crosses the edge, drop the margin.
+ * So the page is not too tall and paragraph gaps are not squeezed. 
+ * Blocks higher up are left alone because a later block on the same page already includes their gap.
+ */
+const dropTrailingMargin = (nodes, height) => {
+  const result = nodes.slice();
+
+  for (let i = result.length - 1; i >= 0; i -= 1) {
+    const node = result[i];
+    if (!node || isFixed(node) || !node.box) continue;
+
+    const marginBottom = node.box.marginBottom || 0;
+    const marginEnds = getTop(node) + (getHeight(node) || 0) + marginBottom;
+
+    if (marginBottom > SAFTY_THRESHOLD && marginEnds > height + SAFTY_THRESHOLD) {
+      result[i] = {
+        ...node,
+        style: { ...(node.style || {}), marginBottom: 0 },
+        box: { ...node.box, marginBottom: 0 },
+      };
+    }
+    break;
+  }
+
+  return result;
+};
+
 const splitNodes = (height, contentArea, nodes) => {
   const currentChildren = [];
   const nextChildren = [];
@@ -98,7 +127,7 @@ const splitNodes = (height, contentArea, nodes) => {
     currentChildren.push(child);
   }
 
-  return [currentChildren, nextChildren];
+  return [dropTrailingMargin(currentChildren, height), nextChildren];
 };
 
 export default splitNodes;
