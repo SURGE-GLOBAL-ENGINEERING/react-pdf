@@ -69,8 +69,15 @@ const resolveDynamicNodes = (props, node) => {
         return [createInstance(res)].filter(Boolean);
       }
 
-      // render footnotes only if they are passed;
+      // render footnotes only if they are passed, and only into the page's first
+      // placeholder. A page can carry several fixed placeholders, but splitPage only
+      // measures and positions the first one; filling the others draws the notes again
+      // at a slightly different height.
       if (node.props.renderFootnotes && props.footnotesView) {
+        if (props.footnotesPlaceholder && node !== props.footnotesPlaceholder) {
+          return [];
+        }
+
         return [props.footnotesView].filter(Boolean);
       }
 
@@ -100,7 +107,12 @@ const resolveDynamicNodes = (props, node) => {
 
 const resolveDynamicPage = (props, page, fontStore) => {
   if (shouldResolveDynamicNodes(page)) {
-    const resolvedPage = resolveDynamicNodes(props, page);
+    const resolvedPage = resolveDynamicNodes(
+      props.footnotesView
+        ? { ...props, footnotesPlaceholder: getFootnotePlaceholder(page) }
+        : props,
+      page,
+    );
     return relayoutPage(resolvedPage, fontStore);
   }
 
